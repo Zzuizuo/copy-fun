@@ -4,12 +4,12 @@ Function.prototype.bind = function (context) {
     }
     var self = this
     var args = [].shift().call(arguments)
-    var fbound = function () {
+    var fBound = function () {
         var bindArgs = [].slice().call(arguments)
-        self.apply(this instanceof self ? this : self, args.concat(bindArgs))
+        self.apply(this instanceof self ? this : context, args.concat(bindArgs))
     }
     var fNOP = function () { }
     fNOP.prototype = this.prototype
-    fbound = new fNOP()
-    return fbound
+    fBound.prototype = new fNOP()
+    return fBound
 }
